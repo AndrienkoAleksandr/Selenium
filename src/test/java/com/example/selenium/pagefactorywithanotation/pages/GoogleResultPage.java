@@ -11,7 +11,7 @@ public class GoogleResultPage {
     @FindBy(how = How.ID_OR_NAME, using = "Codenvy | SAAS Developer Environments")
     private WebElement resultOfSearch;
 
-    public WebElement resultIsExist() {
+    public WebElement findResult() {
         return resultOfSearch;
     }
 }

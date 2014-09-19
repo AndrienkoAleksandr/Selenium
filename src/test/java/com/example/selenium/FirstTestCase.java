@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -63,7 +62,6 @@ public class FirstTestCase {
         // Print a Log In message to the screen
 
         System.out.println(" We blocked because we from Ukraine.");
-
 
 
         // Close the driver

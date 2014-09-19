@@ -30,6 +30,6 @@ public class UsingGoogleSearchPage {
 
         PF.getGoogleSearchPage().submit();
 
-        PF.getGoogleResultPage().resultIsExist();
+        PF.getGoogleResultPage().findResult();
     }
 }
