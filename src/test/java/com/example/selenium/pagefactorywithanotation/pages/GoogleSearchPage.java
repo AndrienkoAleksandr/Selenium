@@ -1,6 +1,5 @@
 package com.example.selenium.pagefactorywithanotation.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -21,7 +20,7 @@ public class GoogleSearchPage {
         textBox.sendKeys(text);
     }
 
-    public void submit(WebDriver driver) {
+    public void submit() {
         buttonSubmit.submit();
     }
 }
