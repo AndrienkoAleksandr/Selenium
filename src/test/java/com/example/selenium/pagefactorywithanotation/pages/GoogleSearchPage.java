@@ -21,7 +21,7 @@ public class GoogleSearchPage {
         textBox.sendKeys(text);
     }
 
-    public void submit(WebDriver driver) {
+    public void submit() {
         buttonSubmit.submit();
     }
 }
