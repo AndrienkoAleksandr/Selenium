@@ -23,14 +23,8 @@ public class SeleniumTestJavaFireFox {
     @Before
     public void setUp() throws Exception {
         if (Platform.getCurrent() == Platform.LINUX) {
-            System.setProperty("webdriver.firefox.bin", "/usr/lib/firefox/firefox.sh");
-//            System.setProperty("webdriver.firefox.bin","/usr/bin/firefox");
+            System.setProperty("webdriver.firefox.bin", "/usr/bin/firefox");
         }
-//        DesiredCapabilities capability = DesiredCapabilities.firefox();
-//        capability.setCapability("platform", Platform.ANY);
-//        capability.setCapability("webdriver.firefox.bin","/usr/lib/firefox/firefox.sh");
-//
-//        driver = new FirefoxDriver(capability);
 
         driver = new FirefoxDriver();
         baseUrl = "file:/home/logarifm/selenium/Selenium/training.html";
@@ -40,13 +34,11 @@ public class SeleniumTestJavaFireFox {
     @Test
     public void testFirstTestJava() throws Exception {
         driver.get(baseUrl);
-        // ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
         WebElement webElement = driver.findElement(By.id("btnAlert"));
         webElement.click();
         WebDriverWait wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.alertIsPresent());
         assertEquals("А я модальное!", closeAlertAndGetItsText());
-        // Warning: verifyTextPresent may require manual changes
         try {
             assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Диалоговое окно закрыто[\\s\\S]*$"));
         } catch (Error e) {
