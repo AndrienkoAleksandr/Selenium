@@ -1,10 +1,10 @@
-package com.example.selenium;
+package com.example.selenium.firsttest;
 
-import com.opera.core.systems.OperaDriver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,10 +14,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-/**
- * Created by logarifm on 19.09.14.
- */
-public class SeleniumTestJavaOpera {
+public class SeleniumTestJavaChrome {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
@@ -25,7 +22,8 @@ public class SeleniumTestJavaOpera {
 
     @Before
     public void setUp() throws Exception {
-        driver = new OperaDriver();
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        driver = new ChromeDriver();
         baseUrl = "file:/home/logarifm/selenium/Selenium/training.html";
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
@@ -33,13 +31,13 @@ public class SeleniumTestJavaOpera {
     @Test
     public void testFirstTestJava() throws Exception {
         driver.get(baseUrl);
-        // ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
+
         WebElement webElement = driver.findElement(By.id("btnAlert"));
         webElement.click();
         WebDriverWait wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.alertIsPresent());
         assertEquals("А я модальное!", closeAlertAndGetItsText());
-        // Warning: verifyTextPresent may require manual changes
+
         try {
             assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Диалоговое окно закрыто[\\s\\S]*$"));
         } catch (Error e) {
@@ -56,7 +54,7 @@ public class SeleniumTestJavaOpera {
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("gbqfq")));
         WebElement input = driver.findElement(By.id("gbqfq"));
         input.sendKeys("codenvy");
-        input.sendKeys(Keys.CANCEL);
+//        input.sendKeys(Keys.CANCEL);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("gbqfb")));
         WebElement buttonSearch = driver.findElement(By.id("gbqfb"));
         buttonSearch.click();
