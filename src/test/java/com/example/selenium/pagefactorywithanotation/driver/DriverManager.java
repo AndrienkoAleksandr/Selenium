@@ -27,7 +27,12 @@ public class DriverManager {
             webDriver = new FirefoxDriver();
         }
         if (browser.equals(Browser.GOOGLE_CHROME)) {
-            System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+            if (Platform.getCurrent() == Platform.LINUX) {
+                System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+            }
+            if (Platform.getCurrent() == Platform.VISTA) {
+                System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+            }
             webDriver = new ChromeDriver();
         }
     }

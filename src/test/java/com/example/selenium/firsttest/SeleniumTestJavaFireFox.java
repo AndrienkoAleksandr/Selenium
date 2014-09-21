@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import static junit.framework.Assert.assertEquals;
@@ -25,9 +26,8 @@ public class SeleniumTestJavaFireFox {
         if (Platform.getCurrent() == Platform.LINUX) {
             System.setProperty("webdriver.firefox.bin", "/usr/bin/firefox");
         }
-
         driver = new FirefoxDriver();
-        baseUrl = "file:/home/logarifm/selenium/Selenium/training.html";
+        baseUrl = "file:" + (new File("training.html")).getAbsolutePath();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 

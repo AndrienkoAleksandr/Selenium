@@ -6,42 +6,41 @@ import com.example.selenium.pagefactorywithanotation.factory.PF;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by logarifm on 19.09.14.
  */
 public class UsingGoogleSearchPage {
 
-    WebDriver driver;
+    private WebDriver driver;
 
     @Before
     public void init() {
-        DriverManager.setDriver(Browser.GOOGLE_CHROME);
+        DriverManager.setDriver(Browser.FIREFOX);
         driver = DriverManager.getDriver();
     }
 
     @After
     public void clearUp() {
-        DriverManager.getDriver().quit();
+        driver.quit();
     }
 
     @Test
     public void testGoogleSearch() {
-        DriverManager.getDriver().get("http://google.com");
+        driver.get("http://google.com");
 
         PF.getGoogleSearchPage().addSearchRequest("codenvy");
 
         PF.getGoogleSearchPage().submit();
 
-        WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
-        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Codenvy | SAAS Developer Environments")));
 
-        WebElement link = driver.findElement(By.linkText("Codenvy | SAAS Developer Environments"));
-        link.click();
+        PF.getGoogleResultPage().findResultAndClick();
+
+        PF.getCodenvyMainPage().clickDocsLink();
+
+        PF.getCodenvyDocsPage().goToWindowFrom(driver.getWindowHandle());
+
+        PF.getCodenvyDocsPage().findParagraph("Learn how to:");
     }
 }

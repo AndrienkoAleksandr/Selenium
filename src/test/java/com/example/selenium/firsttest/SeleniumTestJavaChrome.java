@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import static junit.framework.Assert.assertEquals;
@@ -22,9 +23,15 @@ public class SeleniumTestJavaChrome {
 
     @Before
     public void setUp() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        if (Platform.getCurrent() == Platform.VISTA) {
+            System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        }
+        if (Platform.getCurrent() == Platform.LINUX) {
+            System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        }
+
         driver = new ChromeDriver();
-        baseUrl = "file:/home/logarifm/selenium/Selenium/training.html";
+        baseUrl = "file:" + (new File("training.html")).getAbsolutePath();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
@@ -54,7 +61,6 @@ public class SeleniumTestJavaChrome {
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("gbqfq")));
         WebElement input = driver.findElement(By.id("gbqfq"));
         input.sendKeys("codenvy");
-//        input.sendKeys(Keys.CANCEL);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id("gbqfb")));
         WebElement buttonSearch = driver.findElement(By.id("gbqfb"));
         buttonSearch.click();
