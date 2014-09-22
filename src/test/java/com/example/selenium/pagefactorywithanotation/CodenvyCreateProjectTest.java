@@ -40,8 +40,22 @@ public class CodenvyCreateProjectTest {
 
         PF.getCodenvyIDEPage().checkIDELoaded();
 
-        PF.getCodenvyIDEPage().selectCreateNewProjectInDropDown();
+        PF.getCodenvyIDEPage().selectCreateNewProjectInMenyProject();
 
         PF.getCodenvyIDEPage().checkLaunchOfeXoCreateNewProjectView();
+
+        PF.getCodenvyIDEPage().setProjectName();
+
+        PF.getCodenvyIDEPage().chooseTechnologyProjectJar();
+
+        PF.getCodenvyIDEPage().pressNextButton();
+
+        PF.getCodenvyIDEPage().chooseProjectExample();
+
+        PF.getCodenvyIDEPage().pressFinishButton();
+
+        PF.getCodenvyIDEPage().selectBuildInMenuProject();
+
+        PF.getCodenvyIDEPage().checkSuccessBuildingProject();
     }
 }
