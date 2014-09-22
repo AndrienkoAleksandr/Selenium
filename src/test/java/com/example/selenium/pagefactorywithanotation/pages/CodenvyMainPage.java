@@ -11,8 +11,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * Created by USER on 21.09.2014.
  */
 public class CodenvyMainPage {
+
     private interface Locator {
         String DOC_LINK = "SUPPORT";
+
     }
 
     @FindBy(linkText = Locator.DOC_LINK)
@@ -21,6 +23,7 @@ public class CodenvyMainPage {
     public void clickDocsLink() {
         WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.linkText(Locator.DOC_LINK)));
+
         linkDocs.click();
     }
 }

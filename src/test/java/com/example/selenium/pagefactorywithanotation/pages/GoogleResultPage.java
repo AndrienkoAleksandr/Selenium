@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * Created by logarifm on 19.09.14.
  */
 public class GoogleResultPage {
+
     private interface Locator {
         String CODENVY_LINK = "Codenvy | SAAS Developer Environments";
     }

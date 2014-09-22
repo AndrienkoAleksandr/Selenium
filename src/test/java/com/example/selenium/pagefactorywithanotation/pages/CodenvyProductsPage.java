@@ -1,7 +1,6 @@
 package com.example.selenium.pagefactorywithanotation.pages;
 
 import com.example.selenium.pagefactorywithanotation.driver.DriverManager;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 

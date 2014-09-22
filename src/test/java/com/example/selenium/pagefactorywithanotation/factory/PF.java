@@ -15,6 +15,8 @@ public class PF {
     private static CodenvyMainPage codenvyMainPage;
     private static CodenvyDocsPage codenvyDocsPage;
     private static CodenvyProductsPage codenvyProductsPage;
+    private static CodenvyLoginPage codenvyLoginPage;
+    private static CodenvyIDEPage codenvyIDEPage;
 
     private static WebDriver driver = DriverManager.getDriver();
 
@@ -50,5 +52,15 @@ public class PF {
     public static CodenvyProductsPage getCodenvyProductsPage() {
         return codenvyProductsPage = (codenvyProductsPage == null) ?
                 PageFactory.initElements(driver, CodenvyProductsPage.class) : codenvyProductsPage;
+    }
+
+    public static CodenvyLoginPage getCodenvyLoginPage() {
+        return codenvyLoginPage = (codenvyLoginPage == null) ?
+                PageFactory.initElements(driver, CodenvyLoginPage.class) : codenvyLoginPage;
+    }
+
+    public static CodenvyIDEPage getCodenvyIDEPage() {
+        return codenvyIDEPage = (codenvyIDEPage == null) ?
+                PageFactory.initElements(driver, CodenvyIDEPage.class) : codenvyIDEPage;
     }
 }
