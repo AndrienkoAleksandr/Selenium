@@ -1,10 +1,7 @@
 package com.example.selenium.pagefactorywithanotation.factory;
 
 import com.example.selenium.pagefactorywithanotation.driver.DriverManager;
-import com.example.selenium.pagefactorywithanotation.pages.CodenvyDocsPage;
-import com.example.selenium.pagefactorywithanotation.pages.CodenvyMainPage;
-import com.example.selenium.pagefactorywithanotation.pages.GoogleResultPage;
-import com.example.selenium.pagefactorywithanotation.pages.GoogleSearchPage;
+import com.example.selenium.pagefactorywithanotation.pages.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -17,6 +14,7 @@ public class PF {
     private static GoogleResultPage googleResultPage;
     private static CodenvyMainPage codenvyMainPage;
     private static CodenvyDocsPage codenvyDocsPage;
+    private static CodenvyProductsPage codenvyProductsPage;
 
     private static WebDriver driver = DriverManager.getDriver();
 
@@ -47,5 +45,10 @@ public class PF {
     public static CodenvyDocsPage getCodenvyDocsPage() {
         return codenvyDocsPage = (codenvyDocsPage == null) ?
                 PageFactory.initElements(driver, CodenvyDocsPage.class) : codenvyDocsPage;
+    }
+
+    public static CodenvyProductsPage getCodenvyProductsPage() {
+        return codenvyProductsPage = (codenvyProductsPage == null) ?
+                PageFactory.initElements(driver, CodenvyProductsPage.class) : codenvyProductsPage;
     }
 }

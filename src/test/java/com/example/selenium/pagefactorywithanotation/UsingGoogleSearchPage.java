@@ -43,5 +43,9 @@ public class UsingGoogleSearchPage {
         PF.getCodenvyDocsPage().findFirstParagraph("We offer free community support on our");
 
         PF.getCodenvyDocsPage().textExistInAnyParagraph("We offer premium email support for Early Access Program,");
+
+        PF.getCodenvyDocsPage().clickLinkDeveloperPublicCloud();
+
+        PF.getCodenvyProductsPage().checkTitle();
     }
 }

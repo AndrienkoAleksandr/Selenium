@@ -36,6 +36,5 @@ public class UsingGoogleSearchPage {
 
         page.addSearchRequest("codenvy");
         page.submit();
-
     }
 }
