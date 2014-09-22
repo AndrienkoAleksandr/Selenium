@@ -17,7 +17,7 @@ public class UsingGoogleSearchPage {
 
     @Before
     public void init() {
-        DriverManager.setDriver(Browser.FIREFOX);
+        DriverManager.setDriver(Browser.GOOGLE_CHROME);
         driver = DriverManager.getDriver();
     }
 
@@ -27,20 +27,21 @@ public class UsingGoogleSearchPage {
     }
 
     @Test
-    public void testGoogleSearch() {
+    public void testGoogleSearchAndCodenvyDocs() {
         driver.get("http://google.com");
 
         PF.getGoogleSearchPage().addSearchRequest("codenvy");
 
         PF.getGoogleSearchPage().submit();
 
-
         PF.getGoogleResultPage().findResultAndClick();
 
         PF.getCodenvyMainPage().clickDocsLink();
 
-        PF.getCodenvyDocsPage().goToWindowFrom(driver.getWindowHandle());
+        PF.getCodenvyDocsPage().checkTitle();
 
-        PF.getCodenvyDocsPage().findParagraph("Learn how to:");
+        PF.getCodenvyDocsPage().findFirstParagraph("We offer free community support on our");
+
+        PF.getCodenvyDocsPage().textExistInAnyParagraph("We offer premium email support for Early Access Program,");
     }
 }

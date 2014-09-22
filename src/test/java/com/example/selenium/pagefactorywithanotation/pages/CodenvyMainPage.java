@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class CodenvyMainPage {
     private interface Locator {
-        String DOC_LINK = "USER DOCS";
+        String DOC_LINK = "SUPPORT";
     }
 
     @FindBy(linkText = Locator.DOC_LINK)
