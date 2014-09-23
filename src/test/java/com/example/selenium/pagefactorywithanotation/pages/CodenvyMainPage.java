@@ -20,7 +20,7 @@ public class CodenvyMainPage {
     @FindBy(linkText = Locator.DOC_LINK)
     private WebElement linkDocs;
 
-    public void clickDocsLink() {
+    public void clickSupportLink() {
         WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.linkText(Locator.DOC_LINK)));
 

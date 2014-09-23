@@ -36,7 +36,7 @@ public class UsingGoogleSearchPage {
 
         PF.getGoogleResultPage().findResultAndClick();
 
-        PF.getCodenvyMainPage().clickDocsLink();
+        PF.getCodenvyMainPage().clickSupportLink();
 
         PF.getCodenvyDocsPage().checkTitle();
 
@@ -48,6 +48,4 @@ public class UsingGoogleSearchPage {
 
         PF.getCodenvyProductsPage().checkTitle();
     }
-
-
 }
