@@ -8,8 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static junit.framework.Assert.assertTrue;
-
 /**
  * Created by USER on 21.09.2014.
  */
@@ -17,7 +15,7 @@ public class CodenvyDocsPage {
 
     private interface Locator {
         String TITLE = "Support | Codenvy";
-                            //div[h4[contains(text(), 'Free')]]//p[1]
+        //div[h4[contains(text(), 'Free')]]//p[1]
         String PARAGRAPH = ".//*[@id='post-225']//div[@class = 'entry-content']//p[1]";
         String ALL_PARAGRAPH_OF_DOC_PAGE = ".//*[@id='post-225']//div[@class = 'entry-content']//p";
         String LINK_DEVELOPER_PUBLIC_CLOUD = "Developer Public Cloud";
