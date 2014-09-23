@@ -8,8 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 import static junit.framework.Assert.assertTrue;
 
 /**
@@ -19,17 +17,15 @@ public class CodenvyDocsPage {
 
     private interface Locator {
         String TITLE = "Support | Codenvy";
-        String PARAGRAPH = "div.column.col65 > p";
-        String TAGE_NAME_OF_ALL_PARAGRAPH = "p";
+                            //div[h4[contains(text(), 'Free')]]//p[1]
+        String PARAGRAPH = ".//*[@id='post-225']//div[@class = 'entry-content']//p[1]";
+        String ALL_PARAGRAPH_OF_DOC_PAGE = ".//*[@id='post-225']//div[@class = 'entry-content']//p";
         String LINK_DEVELOPER_PUBLIC_CLOUD = "Developer Public Cloud";
         String DROP_DOWN_PRODUCTS = "#menu-item-215 > a";
     }
 
-    @FindBy(css = Locator.PARAGRAPH)
+    @FindBy(xpath = Locator.PARAGRAPH)
     private WebElement paragraphHowTo;
-
-    @FindBy(tagName = Locator.TAGE_NAME_OF_ALL_PARAGRAPH)
-    private List<WebElement> paragraphs;
 
     @FindBy(css = Locator.DROP_DOWN_PRODUCTS)
     private WebElement dropDownProducts;
@@ -43,21 +39,17 @@ public class CodenvyDocsPage {
     }
 
     public void findFirstParagraph(String text) {
-        new WebDriverWait(DriverManager.getDriver(), 5).
-                until(ExpectedConditions.textToBePresentInElement(paragraphHowTo, text));
+        WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.PARAGRAPH)));
+
+        webDriverWait.until(ExpectedConditions.textToBePresentInElement(paragraphHowTo, text));
     }
 
     public void textExistInAnyParagraph(String text) {
         WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 5);
-        webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("p")));
-
-        boolean isExist = false;
-        for(WebElement webElement: paragraphs) {
-            if(isExist = webElement.getText().contains(text)) {
-                break;
-            }
-        }
-        assertTrue(isExist);
+        String searchXPathAttribute = "[contains(text(), '" + text + "')]";
+        webDriverWait.until(ExpectedConditions.
+                presenceOfAllElementsLocatedBy(By.xpath(Locator.ALL_PARAGRAPH_OF_DOC_PAGE + searchXPathAttribute)));
     }
 
     public void clickLinkDeveloperPublicCloud() {
