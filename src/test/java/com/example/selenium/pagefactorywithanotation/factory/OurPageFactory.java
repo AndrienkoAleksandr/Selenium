@@ -8,58 +8,60 @@ import org.openqa.selenium.support.PageFactory;
 /**
  * Created by logarifm on 19.09.14.
  */
-public class PF {
+public class OurPageFactory {
 
-    private static GoogleSearchPage googleSearchPage;
-    private static GoogleResultPage googleResultPage;
-    private static CodenvyMainPage codenvyMainPage;
-    private static CodenvyDocsPage codenvyDocsPage;
-    private static CodenvyProductsPage codenvyProductsPage;
-    private static CodenvyLoginPage codenvyLoginPage;
-    private static CodenvyIDEPage codenvyIDEPage;
+    private GoogleSearchPage googleSearchPage;
+    private GoogleResultPage googleResultPage;
+    private CodenvyMainPage codenvyMainPage;
+    private CodenvyDocsPage codenvyDocsPage;
+    private CodenvyProductsPage codenvyProductsPage;
+    private CodenvyLoginPage codenvyLoginPage;
+    private CodenvyIDEPage codenvyIDEPage;
+    private WebDriver driver;
 
-    private static WebDriver driver = DriverManager.getDriver();
+    public OurPageFactory() {
+        driver = DriverManager.getDriver();
+    }
 
-
-    public static WebDriver getDriver() {
+    public WebDriver getDriver() {
         return driver;
     }
 
-    public static void setDriver(WebDriver webDriver) {
+    public void setDriver(WebDriver webDriver) {
         driver = webDriver;
     }
 
-    public static GoogleSearchPage getGoogleSearchPage() {
+    public GoogleSearchPage getGoogleSearchPage() {
         return googleSearchPage = (googleSearchPage == null) ?
                 PageFactory.initElements(driver, GoogleSearchPage.class) : googleSearchPage;
     }
 
-    public static GoogleResultPage getGoogleResultPage() {
+    public GoogleResultPage getGoogleResultPage() {
         return googleResultPage = (googleResultPage == null) ?
                 PageFactory.initElements(driver, GoogleResultPage.class) : googleResultPage;
     }
 
-    public static CodenvyMainPage getCodenvyMainPage(){
+    public CodenvyMainPage getCodenvyMainPage(){
         return codenvyMainPage = (codenvyMainPage == null) ?
                 PageFactory.initElements(driver, CodenvyMainPage.class) : codenvyMainPage;
     }
 
-    public static CodenvyDocsPage getCodenvyDocsPage() {
+    public CodenvyDocsPage getCodenvyDocsPage() {
         return codenvyDocsPage = (codenvyDocsPage == null) ?
                 PageFactory.initElements(driver, CodenvyDocsPage.class) : codenvyDocsPage;
     }
 
-    public static CodenvyProductsPage getCodenvyProductsPage() {
+    public CodenvyProductsPage getCodenvyProductsPage() {
         return codenvyProductsPage = (codenvyProductsPage == null) ?
                 PageFactory.initElements(driver, CodenvyProductsPage.class) : codenvyProductsPage;
     }
 
-    public static CodenvyLoginPage getCodenvyLoginPage() {
+    public CodenvyLoginPage getCodenvyLoginPage() {
         return codenvyLoginPage = (codenvyLoginPage == null) ?
                 PageFactory.initElements(driver, CodenvyLoginPage.class) : codenvyLoginPage;
     }
 
-    public static CodenvyIDEPage getCodenvyIDEPage() {
+    public CodenvyIDEPage getCodenvyIDEPage() {
         return codenvyIDEPage = (codenvyIDEPage == null) ?
                 PageFactory.initElements(driver, CodenvyIDEPage.class) : codenvyIDEPage;
     }

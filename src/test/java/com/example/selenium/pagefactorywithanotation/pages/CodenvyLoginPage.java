@@ -1,6 +1,5 @@
 package com.example.selenium.pagefactorywithanotation.pages;
 
-import com.example.selenium.pagefactorywithanotation.driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * Created by logarifm on 22.09.14.
  */
-public class CodenvyLoginPage {
+public class CodenvyLoginPage extends AbstractPage{
 
     private interface Locator {
         String EMAIL = "email";
@@ -29,25 +28,25 @@ public class CodenvyLoginPage {
     private WebElement submit;
 
     public void checkTitle() {
-        WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webDriverWait = new WebDriverWait(driver(), 10);
         webDriverWait.until(ExpectedConditions.titleContains(Locator.TITLE));
     }
 
 
     public void setEmail(String email) {
-        WebDriverWait webDriverWait =  new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webDriverWait =  new WebDriverWait(driver(), 10);
         webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.name(Locator.EMAIL)));
         this.email.sendKeys(email);
     }
 
     public void setPassword(String password) {
-        WebDriverWait webDriverWait =  new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webDriverWait =  new WebDriverWait(driver(), 10);
         webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.name(Locator.EMAIL)));
         this.password.sendKeys(password);
     }
 
     public void logIn() {
-        WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webDriverWait = new WebDriverWait(driver(), 10);
         webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(Locator.SUBMIT)));
         submit.click();
     }

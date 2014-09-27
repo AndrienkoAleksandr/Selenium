@@ -1,34 +1,15 @@
 package com.example.selenium.pagefactorywithanotation;
 
-import com.example.selenium.pagefactorywithanotation.driver.Browser;
-import com.example.selenium.pagefactorywithanotation.driver.DriverManager;
-import com.example.selenium.pagefactorywithanotation.factory.PF;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 
 /**
  * Created by logarifm on 19.09.14.
  */
-public class UsingGoogleSearchPage {
-
-    private WebDriver driver;
-
-    @Before
-    public void init() {
-        DriverManager.setDriver(Browser.GOOGLE_CHROME);
-        driver = DriverManager.getDriver();
-    }
-
-    @After
-    public void clearUp() {
-        driver.quit();
-    }
+public class UsingGoogleSearchPage extends BaseTest{
 
     @Test
     public void testGoogleSearchAndCodenvyDocs() {
-        driver.get("http://google.com");
+        driver().get("http://google.com");
 
         PF.getGoogleSearchPage().addSearchRequest("codenvy");
 

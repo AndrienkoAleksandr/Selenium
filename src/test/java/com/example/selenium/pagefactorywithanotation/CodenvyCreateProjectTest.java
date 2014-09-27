@@ -1,34 +1,15 @@
 package com.example.selenium.pagefactorywithanotation;
 
-import com.example.selenium.pagefactorywithanotation.driver.Browser;
-import com.example.selenium.pagefactorywithanotation.driver.DriverManager;
-import com.example.selenium.pagefactorywithanotation.factory.PF;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
 
 /**
  * Created by logarifm on 22.09.14.
  */
-public class CodenvyCreateProjectTest {
-
-    private WebDriver driver;
-
-    @Before
-    public void init() {
-        DriverManager.setDriver(Browser.GOOGLE_CHROME);
-        driver = DriverManager.getDriver();
-    }
-
-    @After
-    public void clearUp() {
-        driver.quit();
-    }
+public class CodenvyCreateProjectTest extends BaseTest{
 
     @Test
     public void createSimpleCodenvyProjectBuildAndDelete() {
-        driver.get("https://codenvy.com/site/login");
+        driver().get("https://codenvy.com/site/login");
 
         PF.getCodenvyLoginPage().checkTitle();
 
@@ -44,7 +25,7 @@ public class CodenvyCreateProjectTest {
 
         PF.getCodenvyIDEPage().checkLaunchOfeXoCreateNewProjectView();
 
-        PF.getCodenvyIDEPage().setProjectName();
+        PF.getCodenvyIDEPage().setProjectName("projectTest2");
 
         PF.getCodenvyIDEPage().chooseTechnologyProjectJar();
 
@@ -57,5 +38,7 @@ public class CodenvyCreateProjectTest {
         PF.getCodenvyIDEPage().selectBuildInMenuProject();
 
         PF.getCodenvyIDEPage().checkSuccessBuildingProject();
+
+        PF.getCodenvyIDEPage().deleteCreatedProject();
     }
 }

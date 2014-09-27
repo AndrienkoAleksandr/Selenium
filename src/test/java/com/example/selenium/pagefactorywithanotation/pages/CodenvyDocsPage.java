@@ -1,6 +1,5 @@
 package com.example.selenium.pagefactorywithanotation.pages;
 
-import com.example.selenium.pagefactorywithanotation.driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -15,7 +14,7 @@ import static junit.framework.Assert.assertTrue;
 /**
  * Created by USER on 21.09.2014.
  */
-public class CodenvyDocsPage {
+public class CodenvyDocsPage extends AbstractPage{
 
     private interface Locator {
         String TITLE = "Support | Codenvy";
@@ -38,17 +37,17 @@ public class CodenvyDocsPage {
     private WebElement linkDeveloperCloud;
 
     public void checkTitle() {
-        WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 5);
+        WebDriverWait webDriverWait = new WebDriverWait(driver(), 5);
         webDriverWait.until(ExpectedConditions.titleContains(Locator.TITLE));
     }
 
     public void findFirstParagraph(String text) {
-        new WebDriverWait(DriverManager.getDriver(), 5).
+        new WebDriverWait(driver(), 5).
                 until(ExpectedConditions.textToBePresentInElement(paragraphHowTo, text));
     }
 
     public void textExistInAnyParagraph(String text) {
-        WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 5);
+        WebDriverWait webDriverWait = new WebDriverWait(driver(), 5);
         webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.tagName("p")));
 
         boolean isExist = false;
@@ -61,10 +60,10 @@ public class CodenvyDocsPage {
     }
 
     public void clickLinkDeveloperPublicCloud() {
-        WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 5);
+        WebDriverWait webDriverWait = new WebDriverWait(driver(), 5);
         webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(Locator.DROP_DOWN_PRODUCTS)));
 
-        Actions actions = new Actions(DriverManager.getDriver());
+        Actions actions = new Actions(driver());
         actions.moveToElement(dropDownProducts).build().perform();
 
         webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.linkText(Locator.LINK_DEVELOPER_PUBLIC_CLOUD)));

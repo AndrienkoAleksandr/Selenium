@@ -1,6 +1,5 @@
 package com.example.selenium.pagefactorywithanotation.pages;
 
-import com.example.selenium.pagefactorywithanotation.driver.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -13,13 +12,16 @@ import java.util.List;
 /**
  * Created by logarifm on 22.09.14.
  */
-public class CodenvyIDEPage {
+public class CodenvyIDEPage extends AbstractPage{
+
+    private String projectName;
 
     private interface Locator {
         String EXO_BARS = "exo-menuBarItem";
 
-        String EXO_BAR_PROJECT = "body > div:nth-child(8) > div:nth-child(2) > " +
-                "div > div:nth-child(2) > div > table > tbody > tr > td:nth-child(2)";
+        String EXO_BAR_PROJECT = "//td[text()='Project' and @class='exo-menuBarItem']";
+
+        String EXO_BAR_PROJECT_OPENED = "//td[nobr[@id='topmenu/Project/New']]";
 
         String NEW_ITEM = "topmenu/Project/New";
 
@@ -27,24 +29,23 @@ public class CodenvyIDEPage {
 
         String EXO_CREATE_NEW_PROJECT_VIEW = "eXoCreateNewProjectView-window";
 
-        String PROJECT_NAME = "eXoCreateNewProjectViewNameField";
+        String PROJECT_NAME_INPUT = "eXoCreateNewProjectViewNameField";
 
         String PROJECT_TECHNOLOGY = "CREATE-PROJECT-Jar";
 
         String BUTTON_NEXT = "#eXoCreateNewProjectViewNextButton > table > " +
                 "tbody > tr > td.GBI2UT5DPX > table > tbody > tr > td.GBI2UT5DBY";
 
-        String PROJECT_EXAMPLE = "#eXoCreateNewProjectView-window > div > table > " +
-                "tbody > tr.dialogMiddle > td.dialogMiddleCenter > div > div > " +
-                "div:nth-child(2) > div > div:nth-child(2) > div > div:nth-child(2) " +
-                "> div > div:nth-child(2) > div:nth-child(2) > div > div.GBI2UT5DINB > " +
-                "div:nth-child(3) > div > div:nth-child(2) > div > table > " +
-                "tbody:nth-child(4) > tr > td.GBI2UT5DCS.GBI2UT5DES.GBI2UT5DPS";
+        String PROJECT_EXAMPLE = "//div[text()='Simple JAR project.']";
 
         String BUTTON_FINISH = "#eXoCreateNewProjectViewFinishButton > table >" +
                 " tbody > tr > td.GBI2UT5DPX > table > tbody > tr > td.GBI2UT5DBY";
 
-        String PROJECT_MENU = "/html/body/div[5]/div[2]/div/div[2]/div/table/tbody/tr/td[2]";
+        String PROJECT_MENU = "//td[text()='Project' and @class='exo-menuBarItem']";
+
+        String PROJECT_MENU_OVER = "//td[text()='Project' and @class='exo-menuBarItemOver']";
+
+        String PROJECT_MENU_OPENED = "//td[text()='Project' and @class='exo-menuBarItemSelected']";
 
         String BUILD_ITEM = "topmenu/Project/Build";
 
@@ -54,13 +55,24 @@ public class CodenvyIDEPage {
                 "td:nth-child(2) > table > tbody > tr > td.tabTitleText";
 
         String BUILD_PROJECT_PANEL_RESULT = "ide.builder.buildOutput";
+
+        String BUILD_ITEM_CLOSE = "topmenu/Project/Close";
+
+        String BUTTON_DELETE = "//div[@title=\"Delete Item(s)...\"]";
+
+        String DELETE_DIALOG = "ideDeleteItemsView-window";
+
+        String BUTTON_DELETE_YES = "//div[@id=\"ideDeleteItemsView-window\"]//td[text()='Yes']";
     }
 
     @FindBy(className = Locator.EXO_BARS)
     private List<WebElement> exoBarsList;
 
-    @FindBy(css = Locator.EXO_BAR_PROJECT)
+    @FindBy(xpath = Locator.EXO_BAR_PROJECT)
     private WebElement exoBarProject;
+
+    @FindBy(xpath = Locator.EXO_BAR_PROJECT_OPENED)
+    private WebElement exoBarProjectOpened;
 
     @FindBy(id = Locator.NEW_ITEM)
     private WebElement newItem;
@@ -71,8 +83,8 @@ public class CodenvyIDEPage {
     @FindBy(id = Locator.EXO_CREATE_NEW_PROJECT_VIEW)
     private WebElement exoCreateNewProjectView;
 
-    @FindBy(name = Locator.PROJECT_NAME)
-    private WebElement projectName;
+    @FindBy(name = Locator.PROJECT_NAME_INPUT)
+    private WebElement projectNameInput;
 
     @FindBy(id = Locator.PROJECT_TECHNOLOGY)
     private WebElement projectTechnology;
@@ -80,7 +92,7 @@ public class CodenvyIDEPage {
     @FindBy(css = Locator.BUTTON_NEXT)
     private WebElement buttonNext;
 
-    @FindBy(css = Locator.PROJECT_EXAMPLE)
+    @FindBy(xpath = Locator.PROJECT_EXAMPLE)
     private WebElement projectExample;
 
     @FindBy(css = Locator.BUTTON_FINISH)
@@ -88,6 +100,12 @@ public class CodenvyIDEPage {
 
     @FindBy(xpath = Locator.PROJECT_MENU)
     private WebElement projectMenu;
+
+    @FindBy(xpath = Locator.PROJECT_MENU_OVER)
+    private WebElement projectMenuOVER;
+
+    @FindBy(xpath = Locator.PROJECT_MENU_OPENED)
+    private WebElement projectMenuOpened;
 
     @FindBy(id = Locator.BUILD_ITEM)
     private WebElement buildItem;
@@ -98,80 +116,122 @@ public class CodenvyIDEPage {
     @FindBy(id = Locator.BUILD_PROJECT_PANEL_RESULT)
     private WebElement buildProjectPanelResult;
 
+    @FindBy(xpath = Locator.BUTTON_DELETE)
+    private WebElement buttonDelete;
+
+    @FindBy(id = Locator.DELETE_DIALOG)
+    private WebElement dialogDelete;
+
+    @FindBy(xpath = Locator.BUTTON_DELETE_YES)
+    private WebElement buttonDeleteYes;
+
     public void checkIDELoaded() {
-        WebDriverWait webDriverWait = new WebDriverWait(DriverManager.getDriver(), 60);
+        WebDriverWait webDriverWait = new WebDriverWait(driver(), 60);
         webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className(Locator.EXO_BARS)));
 
         webDriverWait.until(ExpectedConditions.visibilityOfAllElements(exoBarsList));
     }
 
     public void selectCreateNewProjectInMenyProject() {
-        Actions action = new Actions(DriverManager.getDriver());
-        action.moveToElement(exoBarProject).build().perform();
+        WebDriverWait webdriverWait = new WebDriverWait(driver(), 10);
+        webdriverWait.
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.EXO_BAR_PROJECT)));
         exoBarProject.click();
 
-        action.moveToElement(newItem).build().perform();
+        webdriverWait.
+                until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.EXO_BAR_PROJECT_OPENED)));
+        exoBarProjectOpened.click();
 
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 15);
         webdriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(Locator.CREATE_ITEM)));
+        Actions action = new Actions(driver());
         action.moveToElement(createItem).build().perform();
 
         createItem.click();
     }
 
     public void checkLaunchOfeXoCreateNewProjectView() {
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webdriverWait = new WebDriverWait(driver(), 10);
         webdriverWait.
                 until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(Locator.EXO_CREATE_NEW_PROJECT_VIEW)));
     }
 
-    public void setProjectName() {
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
-        webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.name(Locator.PROJECT_NAME)));
-        projectName.clear();
-        projectName.sendKeys("projectTest2");
+    public void setProjectName(String name) {
+        projectName = name;
+        WebDriverWait webdriverWait = new WebDriverWait(driver(), 10);
+        webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.name(Locator.PROJECT_NAME_INPUT)));
+        projectNameInput.clear();
+        projectNameInput.sendKeys(name);
     }
 
     public void chooseTechnologyProjectJar() {
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webdriverWait = new WebDriverWait(driver(), 10);
         webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(Locator.PROJECT_TECHNOLOGY)));
         projectTechnology.click();
     }
 
 
     public void pressNextButton() {
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webdriverWait = new WebDriverWait(driver(), 10);
         webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(Locator.BUTTON_NEXT)));
         buttonNext.click();
     }
 
     public void chooseProjectExample() {
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
-        webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(Locator.PROJECT_EXAMPLE)));
+        WebDriverWait webdriverWait = new WebDriverWait(driver(), 10);
+        webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.PROJECT_EXAMPLE)));
         projectExample.click();
     }
 
     public void pressFinishButton() {
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webdriverWait = new WebDriverWait(driver(), 10);
         webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(Locator.BUTTON_FINISH)));
         buttonFinish.click();
     }
 
     public void selectBuildInMenuProject() {
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
-        webdriverWait.until(ExpectedConditions.elementToBeClickable(projectMenu));
-        Actions actions = new Actions(DriverManager.getDriver());
-        actions.moveToElement(projectMenu).build().perform();
-        projectMenu.click();
+        WebDriverWait webDriverWait = new WebDriverWait(driver(), 20);
+        webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className(Locator.EXO_BARS)));
+        webDriverWait.until(ExpectedConditions.visibilityOfAllElements(exoBarsList));
 
-        webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(Locator.BUILD_ITEM)));
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.PROJECT_MENU)));
+        Actions action = new Actions(driver());
+        action.moveToElement(projectMenu).build().perform();
+
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.PROJECT_MENU_OVER)));
+        projectMenuOVER.click();
+
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.PROJECT_MENU_OPENED)));
+
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(Locator.BUILD_ITEM)));
         buildItem.click();
     }
 
     public void checkSuccessBuildingProject() {
-        WebDriverWait webdriverWait = new WebDriverWait(DriverManager.getDriver(), 10);
+        WebDriverWait webdriverWait = new WebDriverWait(driver(), 120);
         webdriverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(Locator.BUILD_PROJECT_PANEL)));
         buildProjectPanel.click();
         ExpectedConditions.textToBePresentInElement(buildProjectPanelResult, "Successful");
+    }
+
+    public void deleteCreatedProject() {
+        String locatorProjectName =
+                ".//div[@id=\"idePackageExplorerTreeGrid\"]//table//div[@class=\"ide-Tree-label\" and text()='" + projectName + "']";
+
+        WebDriverWait webDriverWait = new WebDriverWait(driver(), 10);
+        webDriverWait.until(ExpectedConditions.
+                presenceOfElementLocated(By.xpath(locatorProjectName)));
+        WebElement projectFolder = driver().
+                findElement(By.xpath(locatorProjectName));
+        projectFolder.click();
+
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.BUTTON_DELETE)));
+        buttonDelete.click();
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(Locator.DELETE_DIALOG)));
+
+        webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Locator.BUTTON_DELETE_YES)));
+        buttonDeleteYes.click();
+
+        webDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(Locator.DELETE_DIALOG)));
     }
 }
